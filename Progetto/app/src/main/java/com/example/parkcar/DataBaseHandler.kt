@@ -1,15 +1,18 @@
 package com.example.parkcar
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.widget.Toast
 
 private val DATABASE_NAME = "MyBD"
-private val TABLE_NAME = "Park"
+private val TABLE_NAME = "park"
+
+private val COL_ID = "id"
+private val COL_NAME = "name"
 private val COL_LONG = "longitudine"
 private val COL_LAT = "latitudine"
-private val COL_NAME = "name"
-private val COL_ID = "id"
 private val COL_DATA = "data"
 
 
@@ -22,6 +25,21 @@ class DataBaseHandler(var context : Context) : SQLiteOpenHelper(context, DATABAS
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         TODO("Not yet implemented")
+    }
+
+    fun insertData(record : Record){
+        val db = this.writableDatabase
+        var cv = ContentValues().apply {
+            put(COL_NAME,record.getName())
+            put(COL_LONG,record.getLong())
+            put(COL_LAT,record.getLat())
+            put(COL_DATA,record.getDate())
+        }
+
+        val newRowId = db?.insert(TABLE_NAME, null, cv)
+
+        if(newRowId == -1.toLong()) Toast.makeText(context,"Failed", Toast.LENGTH_SHORT).show()
+        else Toast.makeText(context,"Success", Toast.LENGTH_SHORT).show()
     }
 
 }
