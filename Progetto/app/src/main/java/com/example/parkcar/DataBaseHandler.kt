@@ -27,7 +27,7 @@ class DataBaseHandler(var context : Context) : SQLiteOpenHelper(context, DATABAS
         TODO("Not yet implemented")
     }
 
-    fun insertData(record : Record){
+    fun insertRecord(record : Record){
         val db = this.writableDatabase
         var cv = ContentValues().apply {
             put(COL_NAME,record.getName())
@@ -42,4 +42,26 @@ class DataBaseHandler(var context : Context) : SQLiteOpenHelper(context, DATABAS
         else Toast.makeText(context,"Success", Toast.LENGTH_SHORT).show()
     }
 
-}
+    fun readRecord() : MutableList<Record>{
+        var list : MutableList<Record> = ArrayList()
+        val db = this.readableDatabase
+        val query = "SELECT * FROM "+ TABLE_NAME
+        val result = db.rawQuery(query,null)
+
+        if(result.moveToFirst()){
+            do{
+                var record = Record()
+                record.setId(result.getString(0).toInt())
+                record.setName( result.getString(1))
+                record.setLong(result.getString(2).toDouble())
+                record.setLat(result.getString(3).toDouble())
+                record.setData(result.getString(4))
+
+                list.add(record)
+            }while(result.moveToNext())
+        }
+        db.close()
+        result.close()
+        return list
+    }
+    }
