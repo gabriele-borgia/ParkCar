@@ -19,7 +19,7 @@ private val COL_DATA = "data"
 class DataBaseHandler(var context : Context) : SQLiteOpenHelper(context, DATABASE_NAME,null,1){
     override fun onCreate(db: SQLiteDatabase?) {
         val createTable = "CREATE TABLE "+ TABLE_NAME+"("+ COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+ COL_NAME+" VARCHAR(256), "+
-                COL_LONG + " FLOAT" + COL_LAT + "FLOAT"+ COL_DATA +"DATETIME);"
+                COL_LONG + " VARCHAR(256)," + COL_LAT + " VARCHAR(256),"+ COL_DATA +" DATETIME);"
         db?.execSQL(createTable)
     }
 

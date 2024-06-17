@@ -20,8 +20,8 @@ class Record{
         this.data = calendar.time.toString()
     }
 
-    fun getLong() : Double { return long }
-    fun getLat() : Double { return lat }
+    fun getLong() : String { return long.toString() }
+    fun getLat() : String { return lat.toString() }
     fun getName() : String { return name }
     fun getDate() : String { return data }
 

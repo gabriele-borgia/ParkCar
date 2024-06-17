@@ -22,8 +22,8 @@ class LetturaDB(val context : Context) {
 
 
             name.text = list.get(i).getName()
-            long.text = list.get(i).getLong().toString()
-            lat.text = list.get(i).getLat().toString()
+            long.text = list.get(i).getLong()
+            lat.text = list.get(i).getLat()
             data.text = list.get(i).getDate()
 
             layout.addView(customView)
